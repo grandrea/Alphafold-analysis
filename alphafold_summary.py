@@ -36,11 +36,11 @@ axs[3].title.set_text('plddt vs pTM')
 
 
 sns.scatterplot(data_frame['iptm'], data_frame['plddt'], ax=axs[4])
-axs[4].title.set_text('best hits by ipTM')
+axs[4].title.set_text('plddt vs ipTM')
 
 sns.scatterplot(data_frame_top['iptm'], data_frame_top['plddt'], ax=axs[5])
 # add annotations one by one with a loop
-axs[5].title.set_text('best hits')
+axs[5].title.set_text('best hits by iptm')
 # add annotations one by one with a loop
 for line in range(0,data_frame_top.shape[0]):
      axs[5].text(data_frame_top.iptm.iloc[line]+0.001, 
