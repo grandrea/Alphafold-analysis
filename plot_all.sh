@@ -1,5 +1,5 @@
 #!/bin/bash
-ls > list.txt
+ls -d */ > list.txt
 for i in `cat list.txt`
 do 
 	cp -v plot_AF_all.py $i/$i
