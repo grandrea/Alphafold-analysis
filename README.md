@@ -4,6 +4,7 @@ Requires numpy, seaborn, pandas, numpy, matplotlb, biopython
 
 Collection of scripts to survey a directory of alphafold multimer runs.
 
+it will go in each directory and make pLDDT and PAE plots delimited by sequence, provided the results directory contains a .fasta of the sequence.
 
 first make all summary files and plot all PAE, pLDDT by
 
