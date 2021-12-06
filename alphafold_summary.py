@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 data_frame = pd.read_csv('summary.csv')
 
 data_frame_top = data_frame[data_frame['iptm']>0.670]
+data_frame_top = data_frame_top.sort_values(by=['iptm'], ascending=False)
 data_frame_top = data_frame_top.drop_duplicates(subset = ["run"])
 
 plt.clf()
@@ -56,5 +57,5 @@ plt.suptitle('Alphfold run summary')
 plt.savefig('summary.png')
 
 
-sorted_data_frame = data_frame.sort_values(by=['iptm'])
-sorted_data_frame.to_csv('summary_sorted.csv')
+sorted_data_frame = data_frame.sort_values(by=['iptm'], ascending=False)
+sorted_data_frame.to_csv('summary_sorted.csv', index=False)
