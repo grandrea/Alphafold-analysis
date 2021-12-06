@@ -12,6 +12,7 @@ sed -i 's/^.*\///g' summary.csv
 
 echo "run,model,ptm,iptm,plddt,confrank" > a
 cat a summary.csv > b
+rm a
 mv b summary.csv
 
 
