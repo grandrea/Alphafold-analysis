@@ -10,6 +10,14 @@ import pandas as pd
 
 #fasta file with input sequence must be in result directory
 input_sequence_name  = glob.glob('*fasta')[0]
+
+#plot title as in fasta file
+try:
+    protein_names_for_titile = input_sequence_name.replace('.fasta', '')
+except:
+    protein_names_for_titile = ''
+
+
 try:
     input_sequence = SeqIO.to_dict(SeqIO.parse(input_sequence_name, 'fasta'))
 #handle homomultimers with identical fasta headers
@@ -112,7 +120,7 @@ for file_name in file_list:
         axs[plot_number].hlines(element, xmin = 0, xmax = len(PAE), color='black')
     
 fig.colorbar(axs[0].collections[0], cax=axs[-1])
-fig.suptitle('Predicted alignment error')
+fig.suptitle(str('Predicted alignment error ' + protein_names_for_titile)) 
 plt.savefig(output_name)
 
 
@@ -143,6 +151,6 @@ for file_name in file_list:
 #         #axs[plot_number].hlines(element, xmin = 0, xmax = len(PAE), color='black')
     
 #fig.colorbar(axs[0].collections[0], cax=axs[-1])
-fig.suptitle('plddt')
+fig.suptitle(str('plddt ' + protein_names_for_titile)) 
 plt.savefig(output_name)
 
