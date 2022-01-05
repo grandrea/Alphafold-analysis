@@ -37,12 +37,14 @@ file_list = sorted(file_list)
 
 #finished run will produce a .json file with the model ranking 
 
-json1_file = open('ranking_debug.json')
-json1_str = json1_file.read()
-model_stats = json.loads(json1_str)
-json1_file.close()
-
-model_ranking = model_stats.get('order')
+try:
+    json1_file = open('ranking_debug.json')
+    json1_str = json1_file.read()
+    model_stats = json.loads(json1_str)
+    json1_file.close()
+    model_ranking = model_stats.get('order')
+except FileNotFoundError: #plot an incomplete run 
+    model_ranking = []
 
 
 
@@ -55,11 +57,14 @@ list_ranking = {}
 statistics_list = []
 
 #read pkl, match model number with rank using json file
-for file_name in file_list:
+for index, file_name in enumerate(file_list):
     d = pickle.load(open(file_name,'rb'))
     model_name = file_name.replace('.pkl', '')
     model_name = model_name.replace('result_', '')
-    model_rank = model_ranking.index(model_name)
+    try:
+        model_rank = model_ranking.index(model_name)
+    except ValueError:
+        model_rank = index
     list_ranking[file_name] = [d, model_rank]
     width_list.append(4)
     statistics_list.append([model_name, 
