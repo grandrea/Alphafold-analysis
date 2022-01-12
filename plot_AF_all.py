@@ -144,12 +144,10 @@ for file_name in file_list:
     plot_number = list_ranking.get(file_name)[1]
     PAE = list_ranking.get(file_name)[0]['plddt']
     tick_range = [1] + list(range(500, len(PAE), 500))
+    ytick_range = list(range(0, 100, 10))
     try:
         axs[plot_number].plot(list(range(0,len(PAE), 1)), PAE, color='b')
-        if plot_number == 0:
-            axs[plot_number].set_yticks(ticks = tick_range, labels = tick_range)
-        else:
-            axs[plot_number].set_yticks([], [])
+        axs[plot_number].set_yticks(ticks = ytick_range, labels = ytick_range)
         axs[plot_number].set_xticks(ticks = tick_range, labels = tick_range)
         axs[plot_number].title.set_text(str('model' + str(list_ranking.get(file_name)[1])))
         for element in line_positions:
@@ -157,7 +155,7 @@ for file_name in file_list:
 #           #axs[plot_number].hlines(element, xmin = 0, xmax = len(PAE), color='black')
     except TypeError: #handle single model and single pkl file
         axs.plot(list(range(0,len(PAE), 1)), PAE, color='b')
-        axs.set_yticks(ticks = tick_range, labels = tick_range)
+        axs.set_yticks(ticks = ytick_range, labels = ytick_range)
         axs.set_xticks(ticks = tick_range, labels = tick_range)
         axs.title.set_text(str('model' + str(list_ranking.get(file_name)[1])))
         for element in line_positions:
