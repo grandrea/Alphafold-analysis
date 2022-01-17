@@ -12,7 +12,7 @@ python plot_AF_all.py
 
 will make the PAE and pLDDT plots.
 
-![PAE plot](https://imgur.com/a/33xH3Bx)
+![PAE plot](https://i.imgur.com/f41BenC.png)
 
 ```
 pymol -cq make_structure_figure.pml
