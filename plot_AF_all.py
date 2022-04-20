@@ -100,7 +100,7 @@ model_stats.to_csv('model_statistics.csv',  index=False )
 
 output_name = str('predicted_alignment_error.png')
 
-palette = sns.diverging_palette(220, 20, as_cmap=True)
+palette = sns.cubehelix_palette(start=2, rot=0, dark=0.2, light=.95, reverse=True, as_cmap=True)
 
 fig, axs = plt.subplots(ncols=len(file_list) + 1,
                         gridspec_kw=dict(width_ratios=width_list),
