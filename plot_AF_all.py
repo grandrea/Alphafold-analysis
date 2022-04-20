@@ -76,7 +76,7 @@ for index, file_name in enumerate(file_list):
 
 width_list.append(0.2)
 
-#check protein lengths in input files for heatmap
+#check protein lengths in input files for PAE plot
 sequence_lengths = []
 
 for item in input_sequence.keys():
@@ -85,7 +85,7 @@ for item in input_sequence.keys():
     sequence_lengths.append(sequence_length)
     
 
-
+#figure out positions for black lines delimiting proteins in PAE plot
 line_position_accumulated = accumulate(sequence_lengths)
 line_positions = []
 for item in line_position_accumulated:
@@ -105,24 +105,43 @@ palette = sns.cubehelix_palette(start=2, rot=0, dark=0.2, light=.95, reverse=Tru
 fig, axs = plt.subplots(ncols=len(file_list) + 1,
                         gridspec_kw=dict(width_ratios=width_list),
                         figsize = (4*len(file_list), 4))
-
+fig.subplots_adjust(top=0.8)
 
 for file_name in file_list:
     plot_number = list_ranking.get(file_name)[1]
     PAE = list_ranking.get(file_name)[0]['predicted_aligned_error']
+    ipTM = list_ranking.get(file_name)[0]['iptm'].round(3)
     tick_range = [1] + list(range(500, len(PAE), 500))
-    sns.heatmap(PAE, cmap=palette, ax=axs[plot_number], cbar=False, vmin= 0, vmax = 30)
+    sns.heatmap(PAE,
+                cmap=palette, 
+                ax=axs[plot_number], 
+                cbar=False, 
+                vmin= 0, 
+                vmax = 30)
 #    axs[plot_number].yaxis.set_major_locator(mticker.MaxNLocator(5))
 #    axs[plot_number].xaxis.set_major_locator(mticker.MaxNLocator(5))
     if plot_number == 0:
         axs[plot_number].set_yticks(ticks = tick_range, labels = tick_range)
     else:
         axs[plot_number].set_yticks([], [])
-    axs[plot_number].set_xticks(ticks = tick_range, labels = tick_range)
-    axs[plot_number].title.set_text(str('model' + str(list_ranking.get(file_name)[1])))
+    axs[plot_number].set_xticks(ticks=tick_range, labels=tick_range)
+    axs[plot_number].title.set_text(str('model' + 
+                                        str(list_ranking.get(file_name)[1]) + 
+                                        '\n iptm: ' +
+                                        str(ipTM)))
+    
+    #add black lines delimiting the two proteins
     for element in line_positions:
-        axs[plot_number].vlines(element, ymin = 0, ymax = len(PAE), color='black')
-        axs[plot_number].hlines(element, xmin = 0, xmax = len(PAE), color='black')
+        axs[plot_number].vlines(element,
+                                ymin=0,
+                                ymax=len(PAE),
+                                color='black',
+                                linewidth=3)
+        axs[plot_number].hlines(element,
+                                xmin=0,
+                                xmax=len(PAE),
+                                color='black',
+                                linewidth=3)
     
 fig.colorbar(axs[0].collections[0], cax=axs[-1])
 fig.suptitle(str('Predicted alignment error ' + protein_names_for_titile)) 
