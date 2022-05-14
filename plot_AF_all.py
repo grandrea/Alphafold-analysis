@@ -32,7 +32,7 @@ except ValueError:
     input_sequence = SeqIO.to_dict(SeqIO.parse('corrected.fasta', 'fasta'))
 
 #pickle files coming out of AF run
-file_list = glob.glob('*_multimer.pkl')
+file_list = glob.glob('*_multimer*.pkl')
 file_list = sorted(file_list)
 
 #finished run will produce a .json file with the model ranking 
