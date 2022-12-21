@@ -4,6 +4,8 @@ Requires numpy, seaborn, pandas,  matplotlb, biopython, pymol
 
 Collection of scripts to survey a directory of alphafold multimer runs.
 
+Put the .fasta file with the sequence submitted to alphafold in the results folder.
+
 To analyse a single multimer run, no wrapper scripts:
 
 ```
