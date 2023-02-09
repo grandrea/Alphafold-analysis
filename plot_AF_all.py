@@ -9,13 +9,13 @@ import numpy as np
 import pandas as pd
 
 #fasta file with input sequence must be in result directory
-input_sequence_name  = glob.glob('*fasta')[0]
+input_sequence_name = glob.glob('*fasta')[0]
 
 #plot title as in fasta file
 try:
-    protein_names_for_titile = input_sequence_name.replace('.fasta', '')
+    protein_names_for_title = input_sequence_name.replace('.fasta', '')
 except:
-    protein_names_for_titile = ''
+    protein_names_for_title = ''
 
 
 try:
@@ -144,7 +144,7 @@ for file_name in file_list:
                                 linewidth=3)
     
 fig.colorbar(axs[0].collections[0], cax=axs[-1])
-fig.suptitle(str('Predicted alignment error ' + protein_names_for_titile)) 
+fig.suptitle(str('Predicted alignment error ' + protein_names_for_title))
 plt.savefig(output_name)
 
 
@@ -166,21 +166,42 @@ for file_name in file_list:
     ytick_range = list(range(0, 100, 10))
     try:
         axs[plot_number].plot(list(range(0,len(PAE), 1)), PAE, color='b')
-        axs[plot_number].set_yticks(ticks = ytick_range, labels = ytick_range)
-        axs[plot_number].set_xticks(ticks = tick_range, labels = tick_range)
+        axs[plot_number].set_yticks(ticks=ytick_range, labels=ytick_range)
+        axs[plot_number].set_xticks(ticks=tick_range, labels=tick_range)
         axs[plot_number].title.set_text(str('model' + str(list_ranking.get(file_name)[1])))
         for element in line_positions:
-            axs[plot_number].vlines(element, ymin = 0, ymax = 100, color='black')
+            axs[plot_number].vlines(element, ymin=0, ymax=100, color='black')
 #           #axs[plot_number].hlines(element, xmin = 0, xmax = len(PAE), color='black')
     except TypeError: #handle single model and single pkl file
         axs.plot(list(range(0,len(PAE), 1)), PAE, color='b')
-        axs.set_yticks(ticks = ytick_range, labels = ytick_range)
-        axs.set_xticks(ticks = tick_range, labels = tick_range)
+        axs.set_yticks(ticks=ytick_range, labels=ytick_range)
+        axs.set_xticks(ticks=tick_range, labels=tick_range)
         axs.title.set_text(str('model' + str(list_ranking.get(file_name)[1])))
         for element in line_positions:
-            axs.vlines(element, ymin = 0, ymax = 100, color='black')
+            axs.vlines(element, ymin=0, ymax=100, color='black')
     
-#fig.colorbar(axs[0].collections[0], cax=axs[-1])
-fig.suptitle(str('plddt ' + protein_names_for_titile)) 
+fig.colorbar(axs[0].collections[0], cax=axs[-1])
+fig.suptitle(str('plddt ' + protein_names_for_titile))
 plt.savefig(output_name)
+
+#MSA plot------------------------------
+if "features.pkl" in glob.glob("*"):
+    features = pickle.load(open("features.pkl", "rb"))
+    plt.close()
+    plt.clf()
+    ax = sns.heatmap(features["msa"])
+    ax.set_xticks(ticks=tick_range, labels=tick_range)
+    ax.set_xlabel("residue")
+    ax.set_ylabel("sequences")
+    plt.title("MSA information, logit units")
+    for line_position in line_positions:
+        plt.vlines(line_position,
+                   ymin=0,
+                   ymax=len(features["msa"][:,1]),
+                   color="black",
+                   linewidth=3)
+    plt.xticks(tick_range)
+    plt.subplots_adjust(bottom=0.15)
+    plt.savefig("MSA.png")
+
 
