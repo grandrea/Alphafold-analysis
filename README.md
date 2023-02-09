@@ -12,7 +12,7 @@ To analyse a single multimer run, no wrapper scripts:
 python plot_AF_all.py
 ```
 
-will make the PAE and pLDDT plots.
+will make PAE, pLDDT and MSA coverage plots.
 
 ![PAE plot](https://i.imgur.com/f41BenC.png)
 
