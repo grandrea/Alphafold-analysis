@@ -1,6 +1,6 @@
 # Alphafold-analysis
 
-Requires numpy, seaborn, pandas,  matplotlb, biopython, pymol
+Requires numpy, seaborn, pandas,  matplotlib, biopython. It also requires jax to unpack .pkl files produced by AlphaFold. Pymol is optional and used by make_structure_figure.pml.
 
 Collection of scripts to survey a directory of alphafold multimer runs.
 
