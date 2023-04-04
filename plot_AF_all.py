@@ -182,7 +182,7 @@ for file_name in file_list:
             axs.vlines(element, ymin=0, ymax=100, color='black')
     
 fig.colorbar(axs[0].collections[0], cax=axs[-1])
-fig.suptitle(str('plddt ' + protein_names_for_titile))
+fig.suptitle(str('plddt ' + protein_names_for_title))
 plt.savefig(output_name)
 
 # MSA plot------------------------------
