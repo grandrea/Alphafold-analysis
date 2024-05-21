@@ -1,5 +1,9 @@
 # Alphafold-analysis
 
+
+Generate statistics plots for AlphaFold2 and AlphaFold3 protein multimer runs.
+
+
 Requires numpy, seaborn, pandas,  matplotlib, biopython. It may require jax to unpack .pkl files produced by some versions of AlphaFold2. Pymol is optional and used by make_structure_figure.pml.
 
 Collection of scripts to survey a directory of alphafold2 multimer and alphafold3 runs. For alphafold3, download the run from alphafold server. Only protein-protein runs are supported for alphafold3. Currently, the wrapper scripts only work with alphafold2.
