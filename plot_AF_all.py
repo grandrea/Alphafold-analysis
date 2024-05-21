@@ -250,18 +250,6 @@ if not alphafold3:
 
     # MSA plot------------------------------
 
-    def get_neff(msa, eff_cutoff=0.8): # eff_cutoff=0.62 for metapsicov
-        if msa.ndim == 3: msa = msa.argmax(-1)
-        # pairwise identity
-        msa_sm = 1.0 - squareform(pdist(msa,"hamming"))
-        # weight for each sequence
-        msa_w = (msa_sm >= eff_cutoff).astype(float)
-        msa_w = 1/np.sum(msa_w,-1)
-        return msa_w.mean()
-
-
-
-
     if "features.pkl" in glob.glob("*"):
         features = pickle.load(open("features.pkl", "rb"))
         plt.close()
@@ -280,5 +268,7 @@ if not alphafold3:
         plt.xticks(tick_range)
         plt.subplots_adjust(bottom=0.15)
         plt.savefig("MSA.png")
+
+
 
 
