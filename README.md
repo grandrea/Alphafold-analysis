@@ -27,6 +27,25 @@ will make a figure of the structure colored by pLDDT, one colored by chains and 
 This is at the moment coded for dimers.
 
 
+#### Split AlphaFold 2.x and 3.x models by confidence. 
+
+Works on both pdb and cif files.
+
+Run with
+
+    python alphacrop.py --filename mystructure.pdb
+
+or mystructure.cif. If needed, explicitly specify file format with the --file_format flag
+
+Confidence defined by Deepmind, each input into multiple files made up of:
+- only very high confidence regions (plDDT > 90)
+- only confident regions and above (plDDT > 70)
+- only low concfidence regions and above, discarding very low confidence (plDDT > 50)
+
+Essentially splits the file by b-factor column, generating 3 files.
+
+Also available as colab here  https://colab.research.google.com/drive/1kfF_Kkozi5ox8mVebqKgvc7UEWdXWpnf?usp=sharing
+
 #### For Alphafold2 only
 If instead you have a whole directory of runs, make sure each run has a name like RAB-RAK (for dimers), or similar, with the protein names, and identical subfolder name.
 The script  will go in each directory and make pLDDT and PAE plots delimited by sequence, provided the results directory contains a .fasta of the sequence.
